@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hekaya Naqsa · Posting tool demo</title>
+  <style>
+    :root { --ink:#12343A; --cream:#F4E7C8; --amber:#E8A838; --teal:#0B6E6A; --bg:#f7f4ef; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--ink); }
+    header { display:flex; align-items:center; gap:0.75rem; padding:1rem 1.25rem; background:var(--ink); color:var(--cream); }
+    header img { width:40px; height:40px; border-radius:8px; }
+    main { max-width: 28rem; margin: 1.5rem auto; padding: 0 1rem 3rem; }
+    .card { background:#fff; border-radius:16px; padding:1.25rem; box-shadow:0 8px 24px rgba(18,52,58,.08); margin-bottom:1rem; }
+    h1 { font-size:1.35rem; margin:0 0 .5rem; }
+    p { line-height:1.5; margin:.5rem 0; }
+    .muted { color:#5a6a6d; font-size:.95rem; }
+    button { appearance:none; border:0; border-radius:999px; padding:.75rem 1.25rem; font:inherit; cursor:pointer; }
+    .primary { background:var(--teal); color:#fff; width:100%; }
+    .secondary { background:var(--cream); color:var(--ink); width:100%; }
+    .row { display:flex; gap:.5rem; }
+    .row button { flex:1; }
+    .step { display:none; }
+    .step.active { display:block; }
+    .phone { aspect-ratio:9/16; max-height:280px; margin:1rem auto; background:linear-gradient(160deg,#12343A,#0B6E6A); border-radius:18px; color:var(--cream); display:flex; align-items:center; justify-content:center; text-align:center; padding:1rem; }
+    .badge { display:inline-block; background:var(--amber); color:var(--ink); border-radius:999px; padding:.2rem .6rem; font-size:.8rem; margin-bottom:.75rem; }
+    .ok { color:var(--teal); font-weight:bold; }
+    nav a { color:var(--cream); margin-right:1rem; text-decoration:none; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="./icon.png" alt="Hekaya Naqsa">
+    <div>
+      <strong>Hekaya Naqsa</strong>
+      <div style="font-size:.85rem;opacity:.8">Posting tool</div>
+    </div>
+    <nav style="margin-left:auto">
+      <a href="./">Home</a>
+      <a href="./terms.html">Terms</a>
+      <a href="./privacy.html">Privacy</a>
+    </nav>
+  </header>
+  <main>
+    <div id="step1" class="step active card">
+      <span class="badge">Step 1 · Login Kit</span>
+      <h1>Connect TikTok</h1>
+      <p class="muted">Only the channel owner can sign in. Scope: <code>user.info.basic</code>, <code>video.publish</code>, <code>video.upload</code>.</p>
+      <button class="primary" id="btnLogin">Continue with TikTok</button>
+    </div>
+
+    <div id="step2" class="step card">
+      <span class="badge">Step 2 · Local preview</span>
+      <h1>Watch before upload</h1>
+      <p class="muted">Episode short for “موجود”. File is on this computer. Nothing is posted yet.</p>
+      <div class="phone">Vertical short · 9:16<br>Local preview only</div>
+      <div class="row">
+        <button class="secondary" id="btnReject">Not yet</button>
+        <button class="primary" id="btnApprove">تمام</button>
+      </div>
+    </div>
+
+    <div id="step3" class="step card">
+      <span class="badge">Step 3 · Content Posting API</span>
+      <h1>Publish short</h1>
+      <p class="muted">Direct Post to the owner TikTok account. Caption points to the full episode on YouTube.</p>
+      <p><strong>Caption:</strong> الحكاية ناقصة · الحلقة كاملة على يوتيوب</p>
+      <p><a href="https://www.youtube.com/@HekayaNaqsa">https://www.youtube.com/@HekayaNaqsa</a></p>
+      <button class="primary" id="btnPost">Post to TikTok</button>
+    </div>
+
+    <div id="step4" class="step card">
+      <span class="badge">Done</span>
+      <h1 class="ok">Posted</h1>
+      <p>Short published with Content Posting API. Viewers go to YouTube for the full episode.</p>
+      <p class="muted">Demo flow for TikTok app review · Hekaya Naqsa</p>
+    </div>
+  </main>
+  <script>
+    const show = (id) => {
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    };
+    document.getElementById('btnLogin').onclick = () => show('step2');
+    document.getElementById('btnReject').onclick = () => show('step1');
+    document.getElementById('btnApprove').onclick = () => show('step3');
+    document.getElementById('btnPost').onclick = () => show('step4');
+  </script>
+</body>
+</html>
